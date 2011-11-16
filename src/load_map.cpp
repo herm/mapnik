@@ -1231,7 +1231,7 @@ void map_parser::parse_text_symbolizer( rule & rule, ptree const & sym )
         std::string name;
         optional<std::string> old_name = get_opt_attr<std::string>(sym, "name");
         if (old_name) {
-            std::clog << ": ### WARNING: Using 'name' in TextSymbolizer is deprecated (http://trac.mapnik.org/wiki/TextSymbolizer)\n";
+            //std::clog << ": ### WARNING: Using 'name' in TextSymbolizer is deprecated (http://trac.mapnik.org/wiki/TextSymbolizer)\n";
             name = *old_name;
         } else {
             name = get_value<std::string>(sym, "TextSymbolizer");
@@ -1473,7 +1473,7 @@ void map_parser::parse_shield_symbolizer( rule & rule, ptree const & sym )
         std::string name;
         optional<std::string> old_name = get_opt_attr<std::string>(sym, "name");
         if (old_name) {
-            std::clog << ": ### WARNING: Using 'name' in ShieldSymbolizer is deprecated (http://trac.mapnik.org/wiki/TextSymbolizer)\n";
+            //std::clog << ": ### WARNING: Using 'name' in ShieldSymbolizer is deprecated (http://trac.mapnik.org/wiki/TextSymbolizer)\n";
             name = *old_name;
         } else {
             name = get_value<std::string>(sym, "ShieldSymbolizer");

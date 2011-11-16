@@ -135,7 +135,7 @@ public:
         if (!pInstance_)
         {
 #ifdef MAPNIK_THREADSAFE
-            mutex::scoped_lock lock(mutex_);
+            //mutex::scoped_lock lock(mutex_);
 #endif                        
             if (!pInstance_)
             {
