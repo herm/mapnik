@@ -43,7 +43,7 @@ int main ( int argc , char** argv)
 {
     if (argc != 2)
     {
-        std::cout << "usage: ./rundemo <mapnik_install_dir>\nUsually /usr/local/lib/mapnik2\n";
+        std::cout << "usage: ./rundemo <mapnik_install_dir>\nUsually /usr/local/lib/mapnik\n";
         std::cout << "Warning: ./rundemo looks for data in ../data/,\nTherefore must be run from within the demo/c++ folder.\n";
         return EXIT_SUCCESS;
     }
@@ -253,12 +253,15 @@ int main ( int argc , char** argv)
         save_to_file<image_data_32>(buf.data(),"demo.jpg","jpeg");
         save_to_file<image_data_32>(buf.data(),"demo.png","png");
         save_to_file<image_data_32>(buf.data(),"demo256.png","png256");
+        save_to_file<image_data_32>(buf.data(),"demo.tif","tiff");
+        
         std::cout << "Three maps have been rendered using AGG in the current directory:\n"
             "- demo.jpg\n"
             "- demo.png\n"
             "- demo256.png\n"
+            "- demo.tif\n"
             "Have a look!\n";
-
+        
 #if defined(HAVE_CAIRO)
         Cairo::RefPtr<Cairo::ImageSurface> image_surface;
 

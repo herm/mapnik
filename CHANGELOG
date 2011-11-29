@@ -20,6 +20,8 @@ Mapnik 2.1.0
 
 - Added <layer_by_sql> parameter in OGR plugin to select a layer by SQL query (besides name or index): see http://www.gdal.org/ogr/ogr_sql.html for specifications (kunitoki) (#472)
 
+- Added suppport for output maps as tiff files (addresses #967 partially)
+
 
 Mapnik 2.0.0
 ------------
@@ -406,10 +408,6 @@ Mapnik 0.6.0 Release
 - SCons: Created an optional configure stage (r973)
 
 - Python: Added further pickling/copy support to Map, Layers, Datasources, Styles,and Rules (r907,r913,r921)
-
-- OGCServer: Added support for load_map(), allowing reading of XML styles and layers (r901)
-
-- OGCServer: Enabled friendly html output when in debug mode (debug=1 in ogcserver.conf) (r899)
 
 - Plugins: Added Sqlite driver for reading sqlite databases (r881)
 

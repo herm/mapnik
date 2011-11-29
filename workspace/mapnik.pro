@@ -1,15 +1,15 @@
 # -------------------------------------------------
-# QtCreator Project For Mapnik2
+# QtCreator Project For Mapnik
 # -------------------------------------------------
 QT =
 
-TARGET = mapnik2
+TARGET = mapnik
 TEMPLATE = lib
 
 INCLUDEPATH = \
     ../deps/agg/include \
     ../deps/threadpool \
-    ../include/mapnik2
+    ../include/mapnik
 
 HEADERS += \
     ../include/mapnik/grid/grid.hpp \
@@ -145,6 +145,7 @@ HEADERS += \
     ../include/mapnik/text_placements.hpp \
     ../include/mapnik/text_placements_simple.hpp \
     ../include/mapnik/text_symbolizer.hpp \
+    ../include/mapnik/tiff_io.hpp \
     ../include/mapnik/timer.hpp \
     ../include/mapnik/unicode.hpp \
     ../include/mapnik/utils.hpp \
@@ -167,6 +168,7 @@ SOURCES += \
     ../src/agg/process_markers_symbolizer.cpp \
     ../src/agg/process_point_symbolizer.cpp \
     ../src/agg/process_polygon_symbolizer.cpp \
+    ../src/agg/process_polygon_pattern_symbolizer.cpp \
     ../src/agg/process_raster_symbolizer.cpp \
     ../src/agg/process_shield_symbolizer.cpp \
     ../src/agg/process_text_symbolizer.cpp \

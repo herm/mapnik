@@ -44,7 +44,7 @@ libraries = ['pq','intl','ssl','crypto']
 libraries.append('mapnik2')
 libraries.append(env['ICU_LIB_NAME'])
 boost_program_options = 'boost_program_options%s' % env['BOOST_APPEND']
-libraries.extend([boost_program_options,'sqlite3','mapnik2'])
+libraries.extend([boost_program_options,'sqlite3','mapnik'])
 
 linkflags = env['CUSTOM_LDFLAGS']
 linkflags += ' -framework Kerberos '
