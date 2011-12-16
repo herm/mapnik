@@ -20,7 +20,6 @@ Known values for OPTION are:
   --help            display this help and exit
   -v --version      output version information
   --git-revision    output git hash
-  --svn-revision    output svn revision information (deprecated)
 EOF
 
     exit $1
@@ -62,10 +61,6 @@ while test $# -gt 0; do
 
     --git-revision)
       echo ${CONFIG_GIT_REVISION}
-      ;;
-
-    --svn-revision)
-      echo ${CONFIG_SVN_REVISION}
       ;;
 
     --help)

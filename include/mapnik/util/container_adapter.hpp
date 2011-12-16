@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+ * 
  * This file is part of Mapnik (c++ mapping toolkit)
  *
  * Copyright (C) 2011 Artem Pavlenko
@@ -20,39 +20,51 @@
  *
  *****************************************************************************/
 
-#ifndef KISMET_FEATURESET_HPP
-#define KISMET_FEATURESET_HPP
+//$Id$
+
+#ifndef CONTAINER_ADAPTER_HPP
+#define CONTAINER_ADAPTER_HPP
 
 // mapnik
-#include <mapnik/datasource.hpp>
-#include <mapnik/unicode.hpp>
-#include <mapnik/wkb.hpp>
+#include <mapnik/global.hpp>
+#include <mapnik/geometry.hpp>
+#include <mapnik/util/vertex_iterator.hpp>
 
 // boost
-#include <boost/scoped_ptr.hpp>
-#include <boost/shared_ptr.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/spirit/include/karma.hpp>
 
-//STL
-#include <list>
+namespace boost { namespace spirit { namespace traits {
 
-#include "kismet_types.hpp"
+template <>
+struct is_container<mapnik::geometry_type const> : mpl::true_ {} ;
 
-class kismet_featureset : public mapnik::Featureset
+template <>
+struct container_iterator<mapnik::geometry_type const>
 {
-public:
-    kismet_featureset(const std::list<kismet_network_data>& knd_list,
-                      std::string const& srs,
-                      std::string const& encoding);
-    virtual ~kismet_featureset();
-    mapnik::feature_ptr next();
-
-private:
-    const std::list<kismet_network_data>& knd_list_;
-    boost::scoped_ptr<mapnik::transcoder> tr_;
-    mapnik::wkbFormat format_;
-    int feature_id_;
-    std::list<kismet_network_data>::const_iterator knd_list_it;
-    mapnik::projection source_;
+    typedef mapnik::util::vertex_iterator<double> type;
 };
 
-#endif // KISMET_FEATURESET_HPP
+template <>
+struct begin_container<mapnik::geometry_type const>
+{
+    static mapnik::util::vertex_iterator<double>
+    call (mapnik::geometry_type const& g)
+    {
+        return mapnik::util::vertex_iterator<double>(g.data());
+    }
+};
+
+template <>
+struct end_container<mapnik::geometry_type const>
+{
+    static mapnik::util::vertex_iterator<double>
+    call (mapnik::geometry_type const& g)
+    {
+        return mapnik::util::vertex_iterator<double>();
+    }
+};
+
+}}}
+
+#endif // CONTAINER_ADAPTER_HPP

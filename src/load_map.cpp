@@ -577,13 +577,12 @@ void map_parser::parse_layer( Map & map, ptree const & lay )
     s << "name,"
       << "srs,"
       << "status,"
-      << "title,"
-      << "abstract,"
       << "minzoom,"
       << "maxzoom,"
       << "queryable,"
       << "clear-label-cache,"
-      << "cache-features";
+      << "cache-features,"
+      << "group-by";
     ensure_attrs(lay, "Layer", s.str());
     try
     {
@@ -599,19 +598,7 @@ void map_parser::parse_layer( Map & map, ptree const & lay )
         {
             lyr.setActive( * status );
         }
-
-        optional<std::string> title =  get_opt_attr<std::string>(lay, "title");
-        if (title)
-        {
-            lyr.set_title( * title );
-        }
-
-        optional<std::string> abstract =  get_opt_attr<std::string>(lay, "abstract");
-        if (abstract)
-        {
-            lyr.set_abstract( * abstract );
-        }
-
+        
         optional<double> minZoom = get_opt_attr<double>(lay, "minzoom");
         if (minZoom)
         {
@@ -644,6 +631,12 @@ void map_parser::parse_layer( Map & map, ptree const & lay )
             lyr.set_cache_features( * cache_features );
         }
 
+        optional<std::string> group_by =
+            get_opt_attr<std::string>(lay, "group-by");
+        if (group_by)
+        {
+            lyr.set_group_by( * group_by );
+        }
 
         ptree::const_iterator itr2 = lay.begin();
         ptree::const_iterator end2 = lay.end();
@@ -758,14 +751,12 @@ void map_parser::parse_layer( Map & map, ptree const & lay )
 
 void map_parser::parse_rule( feature_type_style & style, ptree const & r )
 {
-    ensure_attrs(r, "Rule", "name,title");
+    ensure_attrs(r, "Rule", "name");
     std::string name;
     try
     {
         name = get_attr( r, "name", std::string());
-        std::string title = get_attr( r, "title", std::string());
-
-        rule rule(name,title);
+        rule rule(name);
 
         optional<std::string> filter_expr =
             get_opt_child<std::string>( r, "Filter");
@@ -1915,9 +1906,8 @@ void map_parser::parse_building_symbolizer( rule & rule, ptree const & sym )
         optional<double> opacity = get_opt_attr<double>(sym, "fill-opacity");
         if (opacity) building_sym.set_opacity(*opacity);
         // height
-        // TODO - expression
-        optional<double> height = get_opt_attr<double>(sym, "height");
-        if (height) building_sym.set_height(*height);
+        optional<std::string> height = get_opt_attr<std::string>(sym, "height");
+        if (height) building_sym.set_height(parse_expression(*height, "utf8"));
 
         parse_metawriter_in_symbolizer(building_sym, sym);
         rule.append(building_sym);
