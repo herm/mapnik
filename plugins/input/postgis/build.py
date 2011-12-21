@@ -47,7 +47,7 @@ if env['RUNTIME_LINK'] == 'static':
     #plugin_env.ParseConfig(cmd)
     # pg_config does not seem to report correct deps of libpq
     # so resort to hardcoding for now
-    plugin_env['LIBS'].extend(['ldap','pam','ssl','crypto','krb5'])
+    plugin_env['LIBS'].extend(['ldap','pam','ssl','crypto','krb5','intl','iconv'])
 
 input_plugin = plugin_env.SharedLibrary('../postgis', source=postgis_src, SHLIBPREFIX='', SHLIBSUFFIX='.input', LINKFLAGS=env['CUSTOM_LDFLAGS'])
 
