@@ -85,6 +85,8 @@ void agg_renderer<T>::process(building_symbolizer const& sym,
             std::deque<segment_t> face_segments;
             double x0(0);
             double y0(0);
+
+            geom.rewind(0);
             unsigned cm = geom.vertex(&x0,&y0);
             for (unsigned j=1;j<geom.num_points();++j)
             {
@@ -140,6 +142,7 @@ void agg_renderer<T>::process(building_symbolizer const& sym,
                     roof->line_to(x,y+height);
                 }
             }
+            
             path_type path(t_,*frame,prj_trans);
             agg::conv_stroke<path_type> stroke(path);
             ras_ptr->add_path(stroke);
