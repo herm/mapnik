@@ -94,7 +94,6 @@ public:
     {
         return "markers";
     }
-
 };
 
 std::string get_symbol_type(const symbolizer& symbol)
@@ -191,7 +190,6 @@ void export_symbolizer()
 
         .def("markers",markers_,
              return_value_policy<copy_const_reference>())
-
         ;
 }
 
