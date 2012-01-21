@@ -28,12 +28,17 @@
 #include <mapnik/feature_style_processor.hpp>
 #include <mapnik/font_engine_freetype.hpp>
 #include <mapnik/label_collision_detector.hpp>
-#include <mapnik/feature.hpp>
+#include <mapnik/placement_finder.hpp>
+#include <mapnik/map.hpp>
+//#include <mapnik/marker.hpp>
 
+// agg
+//#include "agg_trans_affine.h"
 
 // boost
 #include <boost/utility.hpp>
 #include <boost/scoped_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 
 // FIXME
 // forward declare so that
@@ -45,19 +50,9 @@ namespace agg {
 
 namespace mapnik {
 
-class Map;
 class marker;
+   
 struct rasterizer;
-struct point_symbolizer;
-struct line_symbolizer;
-struct line_pattern_symbolizer;
-struct polygon_symbolizer;
-struct polygon_pattern_symbolizer;
-struct raster_symbolizer;
-struct shield_symbolizer;
-struct text_symbolizer;
-struct building_symbolizer;
-struct markers_symbolizer;
    
 template <typename T>
 class MAPNIK_DECL agg_renderer : public feature_style_processor<agg_renderer<T> >,
@@ -106,7 +101,14 @@ public:
                  proj_transform const& prj_trans);
     void process(markers_symbolizer const& sym,
                  Feature const& feature,
-                 proj_transform const& prj_trans);
+                 proj_transform const& prj_trans);  
+    inline bool process(rule::symbolizers const& /*syms*/,
+                        Feature const& /*feature*/,
+                        proj_transform const& /*prj_trans*/)
+    {
+        // agg renderer doesn't support processing of multiple symbolizers.
+        return false;
+    };
     void painted(bool painted)
     {
         pixmap_.painted(painted);

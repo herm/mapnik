@@ -31,7 +31,8 @@
 #include <mapnik/font_engine_freetype.hpp>
 #include <mapnik/label_collision_detector.hpp>
 #include <mapnik/placement_finder.hpp>
-#include <mapnik/feature.hpp>
+#include <mapnik/map.hpp>
+//#include <mapnik/marker.hpp>
 
 // cairo
 #include <cairomm/context.h>
@@ -54,17 +55,6 @@ namespace mapnik {
 class marker;
 
 class cairo_face;
-class Map;
-struct point_symbolizer;
-struct line_symbolizer;
-struct line_pattern_symbolizer;
-struct polygon_symbolizer;
-struct polygon_pattern_symbolizer;
-struct raster_symbolizer;
-struct shield_symbolizer;
-struct text_symbolizer;
-struct building_symbolizer;
-struct markers_symbolizer;
 
 typedef boost::shared_ptr<cairo_face> cairo_face_ptr;
 
@@ -121,6 +111,13 @@ public:
     void process(markers_symbolizer const& sym,
                  Feature const& feature,
                  proj_transform const& prj_trans);
+    inline bool process(rule::symbolizers const& /*syms*/,
+      Feature const& /*feature*/,
+      proj_transform const& /*prj_trans*/)
+    {
+        // cairo renderer doesn't support processing of multiple symbolizers.
+        return false;
+    };
     void painted(bool /*painted*/)
     {
         // nothing to do
