@@ -48,17 +48,15 @@ namespace mapnik
 
 struct MAPNIK_DECL text_symbolizer : public symbolizer_base
 {
-    text_symbolizer(text_placements_ptr placements = text_placements_ptr(
-                        boost::make_shared<text_placements_dummy>())
-                    );
+    // Note - we do not use boost::make_shared below as VC2008 and VC2010 are
+    // not able to compile make_shared used within a constructor
+    text_symbolizer(text_placements_ptr placements = text_placements_ptr(new text_placements_dummy);
     text_symbolizer(expression_ptr name, std::string const& face_name,
-                    unsigned size, color const& fill,
-                    text_placements_ptr placements = text_placements_ptr(
-                        boost::make_shared<text_placements_dummy>())
+                    float size, color const& fill,
+                    text_placements_ptr placements = text_placements_ptr(new text_placements_dummy)
                     );
-    text_symbolizer(expression_ptr name, unsigned size, color const& fill,
-                    text_placements_ptr placements = text_placements_ptr(
-                        boost::make_shared<text_placements_dummy>())
+    text_symbolizer(expression_ptr name, float size, color const& fill,
+                    text_placements_ptr placements = text_placements_ptr(new text_placements_dummy)
                     );
     text_symbolizer(text_symbolizer const& rhs);
     text_symbolizer& operator=(text_symbolizer const& rhs);
@@ -90,8 +88,8 @@ struct MAPNIK_DECL text_symbolizer : public symbolizer_base
     void set_force_odd_labels(bool force);
     double get_max_char_angle_delta() const func_deprecated; // maximum change in angle between adjacent characters
     void set_max_char_angle_delta(double angle);
-    unsigned get_text_size() const func_deprecated;
-    void set_text_size(unsigned size);
+    float get_text_size() const func_deprecated;
+    void set_text_size(float size);
     std::string const& get_face_name() const func_deprecated;
     void set_face_name(std::string face_name);
     font_set const& get_fontset() const func_deprecated;

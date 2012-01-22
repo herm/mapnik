@@ -94,7 +94,7 @@ text_symbolizer::text_symbolizer(text_placements_ptr placements)
 }
 
 text_symbolizer::text_symbolizer(expression_ptr name, std::string const& face_name,
-                                 unsigned size, color const& fill,
+                                 float size, color const& fill,
                                  text_placements_ptr placements)
     : symbolizer_base(),
       placement_options_(placements)
@@ -105,7 +105,7 @@ text_symbolizer::text_symbolizer(expression_ptr name, std::string const& face_na
     set_fill(fill);
 }
 
-text_symbolizer::text_symbolizer(expression_ptr name, unsigned size, color const& fill,
+text_symbolizer::text_symbolizer(expression_ptr name, float size, color const& fill,
                                  text_placements_ptr placements)
     : symbolizer_base(),
       placement_options_(placements)
@@ -290,12 +290,12 @@ void text_symbolizer::set_max_char_angle_delta(double angle)
     placement_options_->properties.max_char_angle_delta = angle;
 }
 
-void text_symbolizer::set_text_size(unsigned size)
+void text_symbolizer::set_text_size(float size)
 {
     placement_options_->properties.processor.defaults.text_size = size;
 }
 
-unsigned  text_symbolizer::get_text_size() const
+float text_symbolizer::get_text_size() const
 {
     return placement_options_->properties.processor.defaults.text_size;
 }
