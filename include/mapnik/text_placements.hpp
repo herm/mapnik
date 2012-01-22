@@ -164,8 +164,6 @@ public:
 
     virtual ~text_placements() {}
     text_symbolizer_properties properties;
-
-    friend class text_placement_info;
 };
 
 typedef boost::shared_ptr<text_placements> text_placements_ptr;
