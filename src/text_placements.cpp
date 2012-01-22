@@ -25,13 +25,13 @@
 #include <mapnik/text_placements_list.hpp>
 #include <mapnik/expression_string.hpp>
 #include <mapnik/text_processing.hpp>
+#include <mapnik/ptree_helpers.hpp>
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 #include <boost/optional.hpp>
-#include <mapnik/ptree_helpers.hpp>
 
 namespace mapnik {
 
