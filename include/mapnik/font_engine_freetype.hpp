@@ -56,16 +56,9 @@ extern "C"
 #include <iostream>
 #include <algorithm>
 
-// icu
-#include <unicode/ubidi.h>
-#include <unicode/ushape.h>
-#include <unicode/unistr.h>
-
 namespace mapnik
 {
 class font_face;
-class string_info;
-struct text_path;
 
 typedef boost::shared_ptr<font_face> face_ptr;
 
@@ -181,7 +174,7 @@ public:
 
     char_info character_dimensions(const unsigned c);
 
-    void get_string_info(string_info& info, UnicodeString const& ustr, char_properties *format = 0);
+    void get_string_info(string_info & info, UnicodeString const& ustr, char_properties *format);
 
     void set_pixel_sizes(unsigned size)
     {
@@ -351,14 +344,11 @@ struct text_renderer : private boost::noncopyable
     typedef T pixmap_type;
 
     text_renderer (pixmap_type & pixmap, face_manager<freetype_engine> &font_manager_, stroker & s);
-
     box2d<double> prepare_glyphs(text_path *path);
-
     void render(double x0, double y0);
     void render_id(int feature_id,double x0, double y0, double min_radius=1.0);
-    
-private:
 
+private:
     void render_bitmap(FT_Bitmap *bitmap, unsigned rgba, int x, int y, double opacity)
     {
         int x_max=x+bitmap->width;

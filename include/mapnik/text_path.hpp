@@ -26,19 +26,19 @@
 // mapnik
 #include <mapnik/char_info.hpp>
 
+//stl
+#include <vector>
+
 // boost
 #include <boost/utility.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-
 
 // uci
 #include <unicode/unistr.h>
 
 namespace mapnik
 {
-
-
+    
 class string_info : private boost::noncopyable
 {
 protected:
@@ -52,15 +52,15 @@ public:
           text_(text),
           is_rtl(false)
     {
-        
+
     }
-    
+
     string_info()
         : characters_(),
           text_(),
           is_rtl(false)
     {
-        
+
     }
 
     void add_info(char_info const& info)
@@ -78,12 +78,12 @@ public:
         return characters_.size();
     }
     
-    void set_rtl(bool value) 
+    void set_rtl(bool value)
     {
         is_rtl = value;
     }
-    
-    bool get_rtl() const 
+
+    bool get_rtl() const
     {
         return is_rtl;
     }
@@ -97,7 +97,7 @@ public:
     {
         return at(i);
     }
-      
+
     UnicodeString const&  get_string() const 
     {
         return text_;
