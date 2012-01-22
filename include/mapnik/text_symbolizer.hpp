@@ -105,6 +105,7 @@ struct MAPNIK_DECL text_symbolizer : public symbolizer_base
     void set_vertical_alignment(vertical_alignment_e valign);
     vertical_alignment_e get_vertical_alignment() const func_deprecated;
     void set_displacement(double x, double y);
+    void set_displacement(position const& p);
     position const& get_displacement() const func_deprecated;
     void set_avoid_edges(bool avoid);
     bool get_avoid_edges() const func_deprecated;
@@ -113,7 +114,7 @@ struct MAPNIK_DECL text_symbolizer : public symbolizer_base
     void set_minimum_padding(double distance);
     double get_minimum_padding() const func_deprecated;
     void set_minimum_path_length(double size);
-    double get_minimum_path_length() const;
+    double get_minimum_path_length() const func_deprecated;
     void set_allow_overlap(bool overlap);
     bool get_allow_overlap() const func_deprecated;
     void set_text_opacity(double opacity);

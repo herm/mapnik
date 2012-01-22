@@ -116,8 +116,7 @@ typedef boost::variant<point_symbolizer,
                        shield_symbolizer,
                        text_symbolizer,
                        building_symbolizer,
-                       markers_symbolizer
-                       > symbolizer;
+                       markers_symbolizer> symbolizer;
     
         
 
@@ -203,8 +202,6 @@ private:
         template <class T>
         void copy_text_ptr(T & sym) const
         {
-#if 0
-            TODO
             std::string name = to_expression_string(*sym.get_name());
             sym.set_name( parse_expression(name) );
             
@@ -225,7 +222,6 @@ private:
             sym.set_vertical_alignment(valign);
             sym.set_horizontal_alignment(halign);
             sym.set_justify_alignment(jalign);
-#endif
         }
 
         template <class T>

@@ -206,7 +206,6 @@ char_properties::char_properties() :
 
 void char_properties::set_values_from_xml(boost::property_tree::ptree const &sym, std::map<std::string,font_set> const & fontsets)
 {
-
     optional<double> text_size_ = get_opt_attr<double>(sym, "size");
     if (text_size_) text_size = *text_size_;
     optional<double> character_spacing_ = get_opt_attr<double>(sym, "character-spacing");
@@ -334,8 +333,8 @@ text_placement_info::text_placement_info(text_placements const* parent):
     scale_factor(1),
     has_dimensions(false),
     collect_extents(false)
-
 {
+
 }
 
 bool text_placement_info_dummy::next()
@@ -428,13 +427,12 @@ bool text_placement_info_simple::next_position_only()
     return true;
 }
 
-
 text_placement_info_ptr text_placements_simple::get_placement_info() const
 {
     return text_placement_info_ptr(new text_placement_info_simple(this));
 }
 
-/** Positiion string: [POS][SIZE]
+/** Position string: [POS][SIZE]
   * [POS] is any combination of
   * N, E, S, W, NE, SE, NW, SW, X (exact position) (separated by commas)
   * [SIZE] is a list of font sizes, separated by commas. The first font size
@@ -469,8 +467,8 @@ void text_placements_simple::set_positions(std::string positions)
 
     std::string::iterator first = positions.begin(),  last = positions.end();
     qi::phrase_parse(first, last,
-            (direction_name[push_back(phoenix::ref(direction_), _1)] % ',') >> *(',' >> qi::float_[push_back(phoenix::ref(text_sizes_), _1)]),
-            space
+		     (direction_name[push_back(phoenix::ref(direction_), _1)] % ',') >> *(',' >> qi::float_[push_back(phoenix::ref(text_sizes_), _1)]),
+		     space
     );
     if (first != last) {
         std::cerr << "WARNING: Could not parse text_placement_simple placement string ('" << positions << "').\n";

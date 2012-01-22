@@ -345,6 +345,11 @@ void  text_symbolizer::set_displacement(double x, double y)
     placement_options_->properties.displacement = boost::make_tuple(x,y);
 }
 
+void text_symbolizer::set_displacement(position const& p)
+{
+    placement_options_->properties.displacement = p;
+}
+
 position const& text_symbolizer::get_displacement() const
 {
     return placement_options_->properties.displacement;
@@ -389,7 +394,7 @@ void text_symbolizer::set_minimum_path_length(double size)
 {
     placement_options_->properties.minimum_path_length = size;
 }
- 
+
 void text_symbolizer::set_allow_overlap(bool overlap)
 {
     placement_options_->properties.allow_overlap = overlap;
