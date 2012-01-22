@@ -45,7 +45,7 @@
 namespace mapnik {
 
 class text_placements;
-class string_info;
+
 typedef text_path placement_element;
 
 typedef boost::tuple<double,double> position;
