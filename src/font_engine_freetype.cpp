@@ -332,7 +332,7 @@ box2d<double> text_renderer<T>::prepare_glyphs(text_path *path)
         pen.y = int(y * 64);
 
         face_set_ptr faces = font_manager_.get_face_set(properties->face_name, properties->fontset);
-        faces->set_pixel_sizes(properties->text_size);
+        faces->set_character_sizes(properties->text_size);
 
         glyph_ptr glyph = faces->get_glyph(unsigned(c));
         FT_Face face = glyph->get_face()->get_face();
@@ -390,30 +390,30 @@ void text_renderer<T>::render(double x0, double y0)
 
     // now render transformed glyphs
     typename glyphs_t::iterator pos;
-
-    for ( pos = glyphs_.begin(); pos != glyphs_.end();++pos)
-    {
-        double halo_radius = pos->properties->halo_radius;
-        if (halo_radius <= 0.0 || halo_radius > 1024.0) continue;
-        stroker_.init(halo_radius);
-        FT_Glyph g;
-        error = FT_Glyph_Copy(pos->image, &g);
-        if (!error)
+        for ( pos = glyphs_.begin(); pos != glyphs_.end();++pos)
         {
-            FT_Glyph_Transform(g,0,&start);
-            FT_Glyph_Stroke(&g,stroker_.get(),1);
-            error = FT_Glyph_To_Bitmap( &g,FT_RENDER_MODE_NORMAL,0,1);
-            if ( ! error )
+            double halo_radius = pos->properties->halo_radius;
+            //make sure we've got reasonable values.
+            if (halo_radius <= 0.0 || halo_radius > 1024.0) continue;
+            stroker_.init(halo_radius);
+            FT_Glyph g;
+            error = FT_Glyph_Copy(pos->image, &g);
+            if (!error)
             {
+                FT_Glyph_Transform(g,0,&start);
+                FT_Glyph_Stroke(&g,stroker_.get(),1);
+                error = FT_Glyph_To_Bitmap( &g,FT_RENDER_MODE_NORMAL,0,1);
+                if ( ! error )
+                {
 
-                FT_BitmapGlyph bit = (FT_BitmapGlyph)g;
-                render_bitmap(&bit->bitmap, pos->properties->halo_fill.rgba(),
-                              bit->left,
-                              height - bit->top, pos->properties->text_opacity);
+                    FT_BitmapGlyph bit = (FT_BitmapGlyph)g;
+                    render_bitmap(&bit->bitmap, pos->properties->halo_fill.rgba(),
+                                  bit->left,
+                                  height - bit->top, pos->properties->text_opacity);
+                }
             }
+            FT_Done_Glyph(g);
         }
-        FT_Done_Glyph(g);
-    }
     //render actual text
     for ( pos = glyphs_.begin(); pos != glyphs_.end();++pos)
     {
@@ -431,6 +431,7 @@ void text_renderer<T>::render(double x0, double y0)
         }
     }
 }
+
 
 template <typename T>
 void text_renderer<T>::render_id(int feature_id,double x0, double y0, double min_radius)
@@ -467,8 +468,6 @@ void text_renderer<T>::render_id(int feature_id,double x0, double y0, double min
         FT_Done_Glyph(g);
     }
 }
-
-
 
 #ifdef MAPNIK_THREADSAFE
 boost::mutex freetype_engine::mutex_;
